@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Account Manager | CTRLPLAY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --neon-blue: #00eeff;
+            --neon-purple: #b967ff;
+            --dark-bg: #0a0a16;
+            --darker-bg: #070711;
+            --card-bg: rgba(20, 20, 40, 0.8);
+            --text-light: #e0e0ff;
+            --text-gray: #a0a0c0;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+        
+        body.rtl {
+            direction: rtl;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 0;
+            position: relative;
+            z-index: 100;
+        }
+        
+        .brand-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .lang-btn {
+            background: rgba(30, 30, 60, 0.7);
+            color: var(--text-gray);
+            border: 1px solid rgba(0, 238, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .lang-btn:hover {
+            background: rgba(0, 238, 255, 0.1);
+            color: var(--neon-blue);
+        }
+        
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--neon-blue) 0%, var(--neon-purple) 100%);
+            color: #000;
+            font-weight: 600;
+            border-color: transparent;
+        }
+        
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+            z-index: 10;
+            margin-top: 20px;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0, 100, 255, 0.1) 0%, transparent 60%);
+            z-index: -1;
+        }
+        
+        .app-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, var(--neon-blue) 0%, var(--neon-purple) 100%);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 30px rgba(0, 238, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .app-icon::before {
+            content: "8";
+            font-family: 'Arial Black', Arial, sans-serif;
+            font-size: 2.5rem;
+            color: #000;
+            font-weight: bold;
+            margin-top: -15px;
+        }
+        
+        .app-icon::after {
+            content: "CTRL";
+            font-family: Arial, sans-serif;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 30%);
+        }
+        
+        .app-icon span {
+            position: absolute;
+            bottom: 15px;
+            font-family: Arial, sans-serif;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.1;
+        }
+        
+        .hero h1 span {
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--text-gray);
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, var(--neon-blue) 0%, var(--neon-purple) 100%);
+            color: #000;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 0 25px rgba(0, 238, 255, 0.5);
+            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 35px rgba(0, 238, 255, 0.7);
+        }
+        
+        .download-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(0, 238, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to bottom, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--neon-blue);
+        }
+        
+        .feature-desc {
+            color: var(--text-gray);
+            font-size: 1.05rem;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            position: relative;
+            color: var(--neon-blue);
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+        }
+        
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid rgba(0, 238, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .faq-question {
+            color: var(--neon-purple);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .faq-question::before {
+            content: "➥";
+            color: var(--neon-blue);
+            font-size: 1.4rem;
+        }
+        
+        .faq-answer {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            padding-left: 35px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--darker-bg);
+            border-top: 2px solid rgba(0, 238, 255, 0.1);
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 30px;
+        }
+        
+        .footer-about {
+            max-width: 600px;
+        }
+        
+        .footer-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+        }
+        
+        .footer-desc {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            color: var(--text-gray);
+        }
+        
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            width: 100%;
+        }
+        
+        /* Pixel Grid Overlay */
+        .pixel-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 238, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 238, 255, 0.03) 1px, transparent 1px);
+            background-size: 25px 25px;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .download-btn {
+                padding: 15px 35px;
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .brand-name {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .footer-title {
+                font-size: 1.5rem;
+            }
+            
+            .lang-btn {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* RTL Specific Styles */
+        body.rtl .faq-question::before {
+            content: "➥";
+            transform: scaleX(-1);
+        }
+        
+        body.rtl .section-title::after {
+            left: auto;
+            right: 50%;
+            transform: translateX(50%);
+        }
+        
+        body.rtl .faq-answer {
+            padding-left: 0;
+            padding-right: 35px;
+        }
+    </style>
+</head>
+<body dir="ltr">
+    <div class="pixel-grid"></div>
+    
+    <div class="container">
+        <header>
+            <div class="brand-name">CTRLPLAY</div>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="en">English</button>
+                <button class="lang-btn" data-lang="ar">العربية</button>
+            </div>
+        </header>
+        
+        <section class="hero">
+            <div class="app-icon">
+                <span>MANAGER</span>
+            </div>
+            <h1><span data-translate="title">CTRLPLAY STEAM MANAGER</span></h1>
+            <p data-translate="subtitle">Securely manage all your Steam accounts in one place with our easy-to-use solution</p>
+            <button class="download-btn">
+                <i class="fas fa-download"></i> <span data-translate="download">DOWNLOAD NOW</span>
+            </button>
+        </section>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3 class="feature-title" data-translate="feature1_title">Military-Grade Security</h3>
+                <p class="feature-desc" data-translate="feature1_desc">Your accounts are protected with AES-256 encryption and secure local storage</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
+                <h3 class="feature-title" data-translate="feature2_title">Multi-Device Sync</h3>
+                <p class="feature-desc" data-translate="feature2_desc">Access your accounts from all your devices with seamless synchronization</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                <h3 class="feature-title" data-translate="feature3_title">Instant Switching</h3>
+                <p class="feature-desc" data-translate="feature3_desc">Change between accounts with a single click and get back to gaming faster</p>
+            </div>
+        </div>
+        
+        <section class="faq-section">
+            <h2 class="section-title" data-translate="faq_title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <h3 class="faq-question" data-translate="faq1_question">Why should I use CTRLPLAY Steam Manager?</h3>
+                    <p class="faq-answer" data-translate="faq1_answer">If you've purchased from CTRLPLAY, you can easily add your Steam account and start playing without any setup issues. Our software integrates seamlessly with our store purchases.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question" data-translate="faq2_question">Is it safe to use?</h3>
+                    <p class="faq-answer" data-translate="faq2_answer">Absolutely. We use industry-leading encryption and security protocols. Your credentials are stored locally on your device and never sent to our servers.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question" data-translate="faq3_question">How do I get support?</h3>
+                    <p class="faq-answer" data-translate="faq3_answer">Contact us through our support email. We're currently developing additional contact methods to serve you better in the future.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question" data-translate="faq4_question">Do I need a contract?</h3>
+                    <p class="faq-answer" data-translate="faq4_answer">No contracts required. Our software is provided as-is for your convenience. We're exploring partnership opportunities for the future.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3 class="footer-title" data-translate="about_title">About CTRLPLAY</h3>
+                    <p class="footer-desc" data-translate="about_desc">CTRLPLAY is a premier game store specializing in digital game distribution. We provide gamers with the latest titles and essential tools to enhance their gaming experience.</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i> <span data-translate="contact_email">support@ctrlplay.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i> <span data-translate="contact_phone">Phone support coming soon</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-store"></i> <span data-translate="contact_store">Online store coming soon</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p data-translate="copyright">&copy; 2023 CTRLPLAY. All rights reserved. Steam is a registered trademark of Valve Corporation.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language translation object
+        const translations = {
+            en: {
+                title: "CTRLPLAY STEAM MANAGER",
+                subtitle: "Securely manage all your Steam accounts in one place with our easy-to-use solution",
+                download: "DOWNLOAD NOW",
+                feature1_title: "Military-Grade Security",
+                feature1_desc: "Your accounts are protected with AES-256 encryption and secure local storage",
+                feature2_title: "Multi-Device Sync",
+                feature2_desc: "Access your accounts from all your devices with seamless synchronization",
+                feature3_title: "Instant Switching",
+                feature3_desc: "Change between accounts with a single click and get back to gaming faster",
+                faq_title: "Frequently Asked Questions",
+                faq1_question: "Why should I use CTRLPLAY Steam Manager?",
+                faq1_answer: "If you've purchased from CTRLPLAY, you can easily add your Steam account and start playing without any setup issues. Our software integrates seamlessly with our store purchases.",
+                faq2_question: "Is it safe to use?",
+                faq2_answer: "Absolutely. We use industry-leading encryption and security protocols. Your credentials are stored locally on your device and never sent to our servers.",
+                faq3_question: "How do I get support?",
+                faq3_answer: "Contact us through our support email. We're currently developing additional contact methods to serve you better in the future.",
+                faq4_question: "Do I need a contract?",
+                faq4_answer: "No contracts required. Our software is provided as-is for your convenience. We're exploring partnership opportunities for the future.",
+                about_title: "About CTRLPLAY",
+                about_desc: "CTRLPLAY is a premier game store specializing in digital game distribution. We provide gamers with the latest titles and essential tools to enhance their gaming experience.",
+                contact_email: "support@ctrlplay.com",
+                contact_phone: "Phone support coming soon",
+                contact_store: "Online store coming soon",
+                copyright: "© 2023 CTRLPLAY. All rights reserved. Steam is a registered trademark of Valve Corporation."
+            },
+            ar: {
+                title: "مدير حسابات ستيم - كترل بلاي",
+                subtitle: "قم بإدارة جميع حساباتك على ستيم في مكان واحد بشكل آمن وسهل مع حلولنا البسيطة",
+                download: "تحميل الآن",
+                feature1_title: "حماية عسكرية المستوى",
+                feature1_desc: "حساباتك محمية بتشفير AES-256 وتخزين محلي آمن",
+                feature2_title: "مزامنة متعددة الأجهزة",
+                feature2_desc: "الوصول إلى حساباتك من جميع أجهزتك مع مزامنة سلسة",
+                feature3_title: "تبديل فوري",
+                feature3_desc: "التغيير بين الحسابات بنقرة واحدة والعودة إلى اللعب بشكل أسرع",
+                faq_title: "أسئلة متكررة",
+                faq1_question: "لماذا يجب أن أستخدم مدير ستيم من كترل بلاي؟",
+                faq1_answer: "إذا كنت قد اشتريت من كترل بلاي، يمكنك بسهولة إضافة حسابك على ستيم والبدء في اللعب بدون أي مشاكل في الإعداد. برنامجنا يتكامل بسلاسة مع مشتريات متجرنا.",
+                faq2_question: "هل هو آمن للاستخدام؟",
+                faq2_answer: "بالتأكيد. نستخدم بروتوكولات التشفير والأمان الرائدة في المجال. بيانات الاعتماد الخاصة بك مخزنة محليًا على جهازك ولا يتم إرسالها إلى خوادمنا.",
+                faq3_question: "كيف أحصل على الدعم؟",
+                faq3_answer: "اتصل بنا عبر البريد الإلكتروني للدعم. نحن نطور حاليًا طرق اتصال إضافية لخدمتك بشكل أفضل في المستقبل.",
+                faq4_question: "هل أحتاج إلى عقد؟",
+                faq4_answer: "لا حاجة لعقود. برنامجنا مقدم كما هو لراحتك. نحن نستكشف فرص الشراكة في المستقبل.",
+                about_title: "عن كترل بلاي",
+                about_desc: "كترل بلاي هو متجر ألعاب رائد متخصص في توزيع الألعاب الرقمية. نزود اللاعبين بأحدث العناوين والأدوات الأساسية لتعزيز تجربة اللعب الخاصة بهم.",
+                contact_email: "support@ctrlplay.com",
+                contact_phone: "دعم الهاتف قريبًا",
+                contact_store: "المتجر الإلكتروني قريبًا",
+                copyright: "© 2023 كترل بلاي. جميع الحقوق محفوظة. ستيم علامة تجارية مسجلة لشركة فالف."
+            }
+        };
+
+        // Language switcher functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const langButtons = document.querySelectorAll('.lang-btn');
+            const translateElements = document.querySelectorAll('[data-translate]');
+            
+            // Set initial language
+            setLanguage('en');
+            
+            langButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const lang = this.dataset.lang;
+                    
+                    // Update active button
+                    langButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Change language
+                    setLanguage(lang);
+                    
+                    // Update direction
+                    document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+                    document.body.className = lang === 'ar' ? 'rtl' : '';
+                });
+            });
+            
+            function setLanguage(lang) {
+                translateElements.forEach(element => {
+                    const key = element.dataset.translate;
+                    if (translations[lang][key]) {
+                        element.textContent = translations[lang][key];
+                    }
+                });
+            }
+            
+            // Download button animation
+            const downloadBtn = document.querySelector('.download-btn');
+            
+            downloadBtn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = '0 0 35px rgba(0, 238, 255, 0.7)';
+            });
+            
+            downloadBtn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 0 25px rgba(0, 238, 255, 0.5)';
+            });
+            
+            downloadBtn.addEventListener('click', function() {
+                const lang = document.querySelector('.lang-btn.active').dataset.lang;
+                const downloadText = lang === 'ar' ? 'جارٍ التحميل...' : 'Downloading...';
+                const completeText = lang === 'ar' ? 'اكتمل التحميل!' : 'Download Complete!';
+                
+                this.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${downloadText}`;
+                setTimeout(() => {
+                    this.innerHTML = `<i class="fas fa-check"></i> ${completeText}`;
+                    this.style.background = 'linear-gradient(135deg, #00cc00, #00aa00)';
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>
