@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Account Manager | CTRLPLAY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body dir="ltr">
+    <!-- RGB Gradient Border Elements -->
+    <div class="rgb-border rgb-border-top"></div>
+    <div class="rgb-border rgb-border-bottom"></div>
+    <div class="rgb-border rgb-border-left"></div>
+    <div class="rgb-border rgb-border-right"></div>
+    
+    <div class="pixel-grid"></div>
+    
+    <!-- Retro border elements -->
+    <div class="retro-border retro-border-top"></div>
+    <div class="retro-border retro-border-bottom"></div>
+    <div class="retro-border retro-border-left"></div>
+    <div class="retro-border retro-border-right"></div>
+    
+    <div class="container">
+        <header>
+            <div class="brand-name">CTRLPLAY</div>
+            <div class="nav-links">
+                <a href="#" class="nav-link" id="home-link" data-translate="home">HOME</a>
+                <a href="#" class="nav-link" id="faq-link" data-translate="faq_link">FAQ</a>
+            </div>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="ar">AR</button>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <div id="main-content">
+            <section class="hero">
+                <h1><span data-translate="title">CTRLPLAY STEAM MANAGER</span></h1>
+                <p data-translate="subtitle">Securely manage all your Steam accounts in one place with our easy-to-use solution</p>
+                <button class="download-btn">
+                    <i class="fas fa-download"></i> <span data-translate="download">DOWNLOAD NOW</span>
+                </button>
+            </section>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3 class="feature-title" data-translate="feature1_title">Instant Switching</h3>
+                    <p class="feature-desc" data-translate="feature1_desc">Change between accounts with a single click and get back to gaming faster</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FAQ Page (Hidden by default) -->
+        <div id="faq-content" class="faq-page">
+            <a href="#" class="back-btn" id="back-btn">
+                <i class="fas fa-arrow-left"></i> <span data-translate="back">BACK TO HOME</span>
+            </a>
+            
+            <h2 class="section-title" data-translate="faq_title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <h3 class="faq-question" data-translate="faq1_question">Why should I use CTRLPLAY Steam Manager?</h3>
+                    <p class="faq-answer" data-translate="faq1_answer">If you've purchased from CTRLPLAY, you can easily add your Steam account and start playing without any setup issues. Our software integrates seamlessly with our store purchases.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question" data-translate="faq2_question">Is it safe to use?</h3>
+                    <p class="faq-answer" data-translate="faq2_answer">Absolutely. We use industry-leading encryption and security protocols. Your credentials are stored locally on your device and never sent to our servers.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question" data-translate="faq3_question">How do I get support?</h3>
+                    <p class="faq-answer" data-translate="faq3_answer">Contact us through our support email. We're currently developing additional contact methods to serve you better in the future.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3 class="footer-title" data-translate="about_title">About CTRLPLAY</h3>
+                    <p class="footer-desc" data-translate="about_desc">CTRLPLAY is a premier game store specializing in digital game distribution. We provide gamers with the latest titles and essential tools to enhance their gaming experience.</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i> <span data-translate="contact_email">Coming soon</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i> <span data-translate="contact_phone">Phone support coming soon</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-store"></i> <span data-translate="contact_store">Online store coming soon</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p data-translate="copyright">&copy; 2025 CTRLPLAY. All rights reserved. Steam is a registered trademark of Valve Corporation.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
